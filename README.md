@@ -1,4 +1,4 @@
-# Code Exchange Repo Template
+# Stealthwatch sample scripts
 This repository is a template to be used when creating a new repository containing sample code, a sample application, or some other software related to Cisco technologies and to be made available for use by the Cisco DevNet community through Code Exchange.
 
 ## Instructions
