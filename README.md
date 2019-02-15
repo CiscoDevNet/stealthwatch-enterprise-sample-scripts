@@ -1,6 +1,7 @@
 # Stealthwatch Sample Scripts
 This repository contains sample code related to Cisco Stealthwatch Enterprise and is available for use by the Cisco DevNet community through Code Exchange.
 
+<!--
 ## Installation
 TODO: Detailed instructions on how to install, configure, and get the project running. Call out any dependencies. This should be frequently tested and updated to make sure it works reliably, accounts for updated versions of dependencies, etc.
 
@@ -21,13 +22,11 @@ TODO: Instruct users how to get help with this code; this might include links to
 
 ## Getting involved
 TODO: This section should detail why people should get involved and describe key areas you are currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building important pieces, etc. Include information on how to setup a development environment if different from general installation instructions. General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](./CONTRIBUTING.md).
+-->
 
 ----
 
 ## Licensing info
-
-Copyright (c) <YEAR>, <COPYRIGHT HOLDER>
-
 This code is licensed under the BSD 3-Clause License. See [LICENSE](./LICENSE) for details.
 
 
