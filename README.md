@@ -22,11 +22,11 @@ TODO: Instruct users how to get help with this code; this might include links to
 
 ## Getting involved
 TODO: This section should detail why people should get involved and describe key areas you are currently focusing on; e.g., trying to get feedback on features, fixing certain bugs, building important pieces, etc. Include information on how to setup a development environment if different from general installation instructions. General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](./CONTRIBUTING.md).
--->
 
 ----
+-->
 
 ## Licensing info
 This code is licensed under the BSD 3-Clause License. See [LICENSE](./LICENSE) for details.
 
-
+### More info to come...
