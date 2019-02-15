@@ -72,14 +72,14 @@ if(response.status_code == 200):
         # Loop through the list and print each tag (host group)
         tag_list = json.loads(response.content)["data"]
         for tag in tag_list:
-            print("Tag ID = %(tag_id)s; Tag Name = %(tag_name)s" % {'tag_id': tag['id'], 'tag_name': tag['name']})
+            print("Tag ID = {}; Tag Name = {}".format(tag['id'], tag['name']))
 
     # If unable to fetch list of tags (host groups)
     else:
-        print("An error has ocurred, while fetching tags (host groups), with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while fetching tags (host groups), with the following code {}".format(response.status_code))
 
 # If the login was unsuccessful
 else:
-        print("An error has ocurred, while logging in, with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
 
 

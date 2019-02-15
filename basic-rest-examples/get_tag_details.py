@@ -82,10 +82,10 @@ if(response.status_code == 200):
 
     # If unable to fetch details of a given tag (host group)
     else:
-        print("An error has ocurred, while fetching tags (host groups), with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while fetching tags (host groups), with the following code {}".format(response.status_code))
 
 # If the login was unsuccessful
 else:
-        print("An error has ocurred, while logging in, with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
 
 

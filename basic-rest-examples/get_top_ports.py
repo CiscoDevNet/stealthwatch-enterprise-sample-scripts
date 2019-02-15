@@ -70,14 +70,9 @@ if(response.status_code == 200):
     # Set the timestamps for the filters, in the correct format, for last 60 minutes
     end_datetime = datetime.datetime.utcnow()
     start_datetime = end_datetime - datetime.timedelta(minutes=60)
-    if end_datetime is not None:
-        end_timestamp = end_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        while len(end_timestamp.split('.')[1]) > 3:
-            end_timestamp = end_timestamp[:-1]
-    if start_datetime is not None:
-        start_timestamp = start_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')
-        while len(start_timestamp.split('.')[1]) > 3:
-            start_timestamp = start_timestamp[:-1]
+    # Timestamps for this API call requires 3-digit microseconds, so removing the 4th digit at the end of the timestamp
+    end_timestamp = end_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-1]
+    start_timestamp = start_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-1]
 
     # Set the filter with the request data
     request_data = {
@@ -120,10 +115,10 @@ if(response.status_code == 200):
 
     # If unable to update the IPs for a given tag (host group)
     else:
-        print("An error has ocurred, while getting top-ports, with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while getting top-ports, with the following code {}".format(response.status_code))
 
 # If the login was unsuccessful
 else:
-        print("An error has ocurred, while logging in, with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
 
 

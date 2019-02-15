@@ -73,15 +73,15 @@ if(response.status_code == 200):
         SMC_TENANT_ID = tenant_list[0]["id"]
 
         # Print the SMC Tenant ID
-        print("Tenant ID = %(SMC_TENANT_ID)s" % {'SMC_TENANT_ID': SMC_TENANT_ID})
+        print("Tenant ID = {}".format(SMC_TENANT_ID))
 
 
     # If unable to fetch list of tenants (domains)
     else:
-        print("An error has ocurred, while fetching tenants (domains), with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while fetching tenants (domains), with the following code {}".format(response.status_code))
 
 # If the login was unsuccessful
 else:
-        print("An error has ocurred, while logging in, with the following code %(error)s" % {'error': response.status_code})
+        print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
 
 
