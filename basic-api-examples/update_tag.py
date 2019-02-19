@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
 """
-This script will update the details for a specific tag (host group) in Stealthwatch
+This script will update the details for a specific tag (host group) in Stealthwatch using the REST API.
+
+For more information on this API, please visit:
+https://www.cisco.com/web/fw/stealthwatch/Online-Help/Content/Online-Help/enterprise-rest-api.htm
+
  -
 
 Script Dependencies:

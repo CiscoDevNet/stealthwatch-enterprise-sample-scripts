@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
 """
-This script will get the security events for a specific IP in Stealthwatch
+This script will get the top conversations for a specific IP in Stealthwatch using the REST API.
+
+For more information on this API, please visit:
+https://www.cisco.com/web/fw/stealthwatch/Online-Help/Content/Online-Help/enterprise-rest-api.htm
+
  -
 
 Script Dependencies:
@@ -65,26 +69,25 @@ response = api_session.request("POST", url, verify=False, data=login_request_dat
 if(response.status_code == 200):
 
     # Set the URL for the query to POST the filter and initiate the search
-    url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/security-events/queries'
+    url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-conversations/queries'
 
     # Set the timestamps for the filters, in the correct format, for last 60 minutes
     end_datetime = datetime.datetime.utcnow()
     start_datetime = end_datetime - datetime.timedelta(minutes=60)
-    end_timestamp = end_datetime.strftime('%Y-%m-%dT%H:%M:%SZ')
-    start_timestamp = start_datetime.strftime('%Y-%m-%dT%H:%M:%SZ')
+    # Timestamps for this API call requires 3-digit microseconds, so removing the 4th digit at the end of the timestamp
+    end_timestamp = end_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-1]
+    start_timestamp = start_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-1]
 
     # Set the filter with the request data
     request_data = {
-        "timeRange": {
-            "from": start_timestamp,
-            "to": end_timestamp
-        },
-        "hosts": [
-            {
-                "ipAddress": MALICIOUS_IP,
-                "type": "source"
+        "startTime": start_timestamp,
+        "endTime": end_timestamp,
+        "subject": {
+            "ipAddresses": {
+                "includes": [MALICIOUS_IP]
             }
-        ],
+        },
+        "maxRows": 50
     }
 
     # Perform the query to initiate the search
@@ -94,20 +97,19 @@ if(response.status_code == 200):
     # If successfully able to initiate search, grab the search details
     if (response.status_code == 200):
         print("Generating results. Please wait...\n")
-        search = json.loads(response.content)["data"]["searchJob"]
-        search_id = search["id"]
+        search = json.loads(response.content)["data"]
 
         # Set the URL to check the search status
-        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/security-events/queries/' + search_id
+        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-conversations/queries/' + search["queryId"]
 
         # While search status is not complete, check the status every second
-        while search["percentComplete"] != 100.0:
+        while search["status"] != "COMPLETED":
             response = api_session.request("GET", url, verify=False)
             search = json.loads(response.content)["data"]
             time.sleep(1)
 
         # Set the URL to check the search results and get them
-        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/security-events/results/' + search_id
+        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-conversations/results/' + search["queryId"]
         response = api_session.request("GET", url, verify=False)
         results = json.loads(response.content)["data"]["results"]
 
@@ -117,7 +119,7 @@ if(response.status_code == 200):
 
     # If unable to update the IPs for a given tag (host group)
     else:
-        print("An error has ocurred, while getting security events, with the following code {}".format(response.status_code))
+        print("An error has ocurred, while getting top-conversations, with the following code {}".format(response.status_code))
 
 # If the login was unsuccessful
 else:

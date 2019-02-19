@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
 """
-This script will get the top conversations for a specific IP in Stealthwatch
+This script will get the top ports for a specific IP in Stealthwatch using the REST API.
+
+For more information on this API, please visit:
+https://www.cisco.com/web/fw/stealthwatch/Online-Help/Content/Online-Help/enterprise-rest-api.htm
+
  -
 
 Script Dependencies:
@@ -65,7 +69,7 @@ response = api_session.request("POST", url, verify=False, data=login_request_dat
 if(response.status_code == 200):
 
     # Set the URL for the query to POST the filter and initiate the search
-    url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-conversations/queries'
+    url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-ports/queries'
 
     # Set the timestamps for the filters, in the correct format, for last 60 minutes
     end_datetime = datetime.datetime.utcnow()
@@ -96,7 +100,7 @@ if(response.status_code == 200):
         search = json.loads(response.content)["data"]
 
         # Set the URL to check the search status
-        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-conversations/queries/' + search["queryId"]
+        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-ports/queries/' + search["queryId"]
 
         # While search status is not complete, check the status every second
         while search["status"] != "COMPLETED":
@@ -105,7 +109,7 @@ if(response.status_code == 200):
             time.sleep(1)
 
         # Set the URL to check the search results and get them
-        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-conversations/results/' + search["queryId"]
+        url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-ports/results/' + search["queryId"]
         response = api_session.request("GET", url, verify=False)
         results = json.loads(response.content)["data"]["results"]
 
@@ -115,7 +119,7 @@ if(response.status_code == 200):
 
     # If unable to update the IPs for a given tag (host group)
     else:
-        print("An error has ocurred, while getting top-conversations, with the following code {}".format(response.status_code))
+        print("An error has ocurred, while getting top-ports, with the following code {}".format(response.status_code))
 
 # If the login was unsuccessful
 else:
