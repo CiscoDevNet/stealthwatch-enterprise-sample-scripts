@@ -44,11 +44,11 @@ except:
 
 
 # Enter all authentication info
-SMC_USER = ""
-SMC_PASSWORD = ""
-SMC_HOST = ""
-SMC_TENANT_ID = ""
-MALICIOUS_IP = ""
+SMC_USER = "admin"
+SMC_PASSWORD = "lan7cope"
+SMC_HOST = "10.208.102.170"
+SMC_TENANT_ID = "122"
+MALICIOUS_IP = "10.10.101.24"
 
 # Set the URL for SMC login
 url = "https://" + SMC_HOST + "/token/v2/authenticate"
@@ -81,13 +81,9 @@ if(response.status_code == 200):
     request_data = {
         "startDateTime": start_timestamp,
         "endDateTime": end_timestamp,
-        "subject": {
-            "ipAddresses": {
-                "includes": [MALICIOUS_IP]
-            }
-        },
         "recordLimit": 50
     }
+    print(request_data)
 
     # Perform the query to initiate the search
     request_headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
@@ -119,6 +115,9 @@ if(response.status_code == 200):
     # If unable to update the IPs for a given tag (host group)
     else:
         print("An error has ocurred, while getting flows, with the following code {}".format(response.status_code))
+
+    uri = 'https://' + SMC_HOST + '/token'
+    response = api_session.delete(uri, timeout=30, verify=False)
 
 # If the login was unsuccessful
 else:

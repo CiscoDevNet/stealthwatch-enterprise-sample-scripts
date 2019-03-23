@@ -84,6 +84,9 @@ if(response.status_code == 200):
     else:
         print("An error has ocurred, while fetching tenants (domains), with the following code {}".format(response.status_code))
 
+    uri = 'https://' + SMC_HOST + '/token'
+    response = api_session.delete(uri, timeout=30, verify=False)
+
 # If the login was unsuccessful
 else:
         print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
