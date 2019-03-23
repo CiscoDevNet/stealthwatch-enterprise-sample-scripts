@@ -1,0 +1,832 @@
+{
+	"info": {
+		"_postman_id": "c706b314-a1df-46c6-a29e-e8e1944206b7",
+		"name": "Stealthwatch Enterprise - REST (Reporting)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{host}}/token/v2/authenticate",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"token",
+						"v2",
+						"authenticate"
+					]
+				},
+				"description": "Authenticate"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Domains (Tenants)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4c4b536-c9c3-4d27-a6bb-38b42bee3ae3",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"tenant-id\", jsonData.data[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flows (Query)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"query-id\", jsonData.data.query.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6545a4c5-8bdc-4454-b69d-00ed8d925f9f",
+						"exec": [
+							"var hoursBack = 24;",
+							"",
+							"var endTime = new Date();",
+							"var startTime = new Date();",
+							"startTime.setHours(endTime.getHours() - hoursBack);",
+							"",
+							"var endTimestamp = endTime.getUTCFullYear() + \"-\" + (\"0\" + (endTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (endTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (endTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCSeconds())).slice(-2) + \"Z\";",
+							"var startTimestamp = startTime.getUTCFullYear() + \"-\" + (\"0\" + (startTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (startTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (startTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCSeconds())).slice(-2) + \"Z\";",
+							"",
+							"postman.setEnvironmentVariable(\"end-timestamp\", endTimestamp);",
+							"postman.setEnvironmentVariable(\"start-timestamp\", startTimestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDateTime\": \"{{start-timestamp}}\",\n    \"endDateTime\": \"{{end-timestamp}}\",\n    \"recordLimit\": 500,\n    \"subject\": {\n        \"ipAddresses\": {\n            \"includes\": [\"{{malicious-ip}}\"],\n            \"excludes\": []\n        },\n        \"hostGroups\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"username\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"macAddress\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"hostGroups\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"username\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"macAddress\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"flow\": {\n        \"tcpUdpPorts\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"flowDirection\": \"BOTH\",\n        \"byteCount\": [],\n        \"packetCount\": [],\n        \"payload\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"flowDataSource\": [],\n        \"protocol\": [],\n        \"includeInterfaceData\": false\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v2/tenants/{{tenant-id}}/flows/queries",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v2",
+						"tenants",
+						"{{tenant-id}}",
+						"flows",
+						"queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flows (Status)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v2/tenants/{{tenant-id}}/flows/queries/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v2",
+						"tenants",
+						"{{tenant-id}}",
+						"flows",
+						"queries",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flows (Results)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v2/tenants/{{tenant-id}}/flows/queries/{{query-id}}/results",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v2",
+						"tenants",
+						"{{tenant-id}}",
+						"flows",
+						"queries",
+						"{{query-id}}",
+						"results"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Security Events (Query)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"query-id\", jsonData.data.searchJob.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6545a4c5-8bdc-4454-b69d-00ed8d925f9f",
+						"exec": [
+							"var hoursBack = 24;",
+							"",
+							"var endTime = new Date();",
+							"var startTime = new Date();",
+							"startTime.setHours(endTime.getHours() - hoursBack);",
+							"",
+							"var endTimestamp = endTime.getUTCFullYear() + \"-\" + (\"0\" + (endTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (endTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (endTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCSeconds())).slice(-2) + \"Z\";",
+							"var startTimestamp = startTime.getUTCFullYear() + \"-\" + (\"0\" + (startTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (startTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (startTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCSeconds())).slice(-2) + \"Z\";",
+							"",
+							"postman.setEnvironmentVariable(\"end-timestamp\", endTimestamp);",
+							"postman.setEnvironmentVariable(\"start-timestamp\", startTimestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"timeRange\": {\n        \"from\": \"{{start-timestamp}}\",\n        \"to\": \"{{end-timestamp}}\"\n    },\n    \"hosts\": [\n    \t{\n\t\t\t\"ipAddress\": \"{{malicious-ip}}\",\n\t\t\t\"type\": \"source\"\n\t\t}\n\t],\n    \"securityEventTypeIds\": []\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/security-events/queries",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"security-events",
+						"queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Security Events (Status)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/security-events/queries/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"security-events",
+						"queries",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Security Events (Results)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/security-events/results/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"security-events",
+						"results",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Conversations (Query)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"query-id\", jsonData.data.queryId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6545a4c5-8bdc-4454-b69d-00ed8d925f9f",
+						"exec": [
+							"var hoursBack = 24;",
+							"",
+							"var endTime = new Date();",
+							"var startTime = new Date();",
+							"startTime.setHours(endTime.getHours() - hoursBack);",
+							"",
+							"var endTimestamp = endTime.getUTCFullYear() + \"-\" + (\"0\" + (endTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (endTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (endTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCSeconds())).slice(-2) + \".000\";",
+							"var startTimestamp = startTime.getUTCFullYear() + \"-\" + (\"0\" + (startTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (startTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (startTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCSeconds())).slice(-2) + \".000\";",
+							"",
+							"postman.setEnvironmentVariable(\"end-timestamp\", endTimestamp);",
+							"postman.setEnvironmentVariable(\"start-timestamp\", startTimestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startTime\": \"{{start-timestamp}}\",\n    \"endTime\": \"{{end-timestamp}}\",\n    \"connection\": {\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"direction\": \"INBOUND_PLUS_OUTBOUND\",\n        \"portProtocols\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"subject\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [\n                \"{{malicious-ip}}\"\n            ],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"orientation\": \"EITHER\",\n    \"maxRows\": 50,\n    \"flowCollectors\": [],\n    \"orderBy\": \"TOTAL_BYTES\",\n    \"excludeBpsPps\": true,\n    \"excludeOthers\": true,\n    \"excludeCounts\": false,\n    \"standardOptions\": true\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-conversations/queries",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"flow-reports",
+						"top-conversations",
+						"queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Conversations (Status)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-conversations/queries/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"flow-reports",
+						"top-conversations",
+						"queries",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Conversations (Results)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-conversations/results/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"flow-reports",
+						"top-conversations",
+						"results",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Ports (Query)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"query-id\", jsonData.data.queryId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6545a4c5-8bdc-4454-b69d-00ed8d925f9f",
+						"exec": [
+							"var hoursBack = 24;",
+							"",
+							"var endTime = new Date();",
+							"var startTime = new Date();",
+							"startTime.setHours(endTime.getHours() - hoursBack);",
+							"",
+							"var endTimestamp = endTime.getUTCFullYear() + \"-\" + (\"0\" + (endTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (endTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (endTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (endTime.getUTCSeconds())).slice(-2) + \".000\";",
+							"var startTimestamp = startTime.getUTCFullYear() + \"-\" + (\"0\" + (startTime.getUTCMonth() + 1)).slice(-2) + \"-\" + (\"0\" + (startTime.getUTCDate())).slice(-2) + \"T\" + (\"0\" + (startTime.getUTCHours())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCMinutes())).slice(-2) + \":\" + (\"0\" + (startTime.getUTCSeconds())).slice(-2) + \".000\";",
+							"",
+							"postman.setEnvironmentVariable(\"end-timestamp\", endTimestamp);",
+							"postman.setEnvironmentVariable(\"start-timestamp\", startTimestamp);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startTime\": \"{{start-timestamp}}\",\n    \"endTime\": \"{{end-timestamp}}\",\n    \"connection\": {\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"direction\": \"INBOUND_PLUS_OUTBOUND\",\n        \"portProtocols\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"subject\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [\n                \"{{malicious-ip}}\"\n            ],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"orientation\": \"EITHER\",\n    \"maxRows\": 50,\n    \"flowCollectors\": [],\n    \"orderBy\": \"TOTAL_BYTES\",\n    \"excludeBpsPps\": true,\n    \"excludeOthers\": true,\n    \"excludeCounts\": false,\n    \"standardOptions\": true\n}"
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-ports/queries",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"flow-reports",
+						"top-ports",
+						"queries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Ports (Status)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-ports/queries/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"flow-reports",
+						"top-ports",
+						"queries",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Top Ports (Results)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b12b7c80-d1af-47e8-be02-2ddc0cc25807",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-ports/results/{{query-id}}",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sw-reporting",
+						"v1",
+						"tenants",
+						"{{tenant-id}}",
+						"flow-reports",
+						"top-ports",
+						"results",
+						"{{query-id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{host}}/token",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"token"
+					]
+				},
+				"description": "Authenticate"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "86024b4f-5fe0-4e9d-9b86-003c8b68fae9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "80e277b2-106f-445c-9427-8812c82c53f4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
