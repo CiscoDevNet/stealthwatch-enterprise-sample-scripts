@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "23d76da1-e97f-475c-bffe-245e4374ab12",
+		"_postman_id": "9623ce17-c97b-4564-8f9c-be8bb07100e6",
 		"name": "Stealthwatch Enterprise - REST (Configuration Mgmt.)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -24,21 +24,21 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "{{username}}",
+							"value": "admin",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "{{password}}",
+							"value": "C1sco12345",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "https://{{host}}/token/v2/authenticate",
+					"raw": "https://{{STEALTHWATCH-SMC}}/token/v2/authenticate",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"token",
@@ -78,10 +78,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
@@ -119,19 +119,25 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/smc-configuration/rest/v1/tenants/{{tenant-id}}/tags/",
+					"raw": "https://{{STEALTHWATCH-SMC}}/smc-configuration/rest/v1/tenants/:tenant-id/tags/",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"smc-configuration",
 						"rest",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"tags",
 						""
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						}
 					]
 				}
 			},
@@ -171,19 +177,25 @@
 					"raw": "[\n    {\n        \"name\": \"Sample Threat Feed\",\n        \"location\": \"OUTSIDE\",\n        \"description\": \"A sample of a threat feed\",\n        \"ranges\": [\n            \"149.202.170.60\",\n            \"23.129.64.101\",\n            \"37.187.129.166\",\n            \"91.146.121.3\"\n        ],\n        \"hostBaselines\": false,\n        \"suppressExcludedServices\": true,\n        \"inverseSuppression\": false,\n        \"hostTrap\": false,\n        \"sendToCta\": false,\n        \"parentId\": 0\n    }\n]"
 				},
 				"url": {
-					"raw": "https://{{host}}/smc-configuration/rest/v1/tenants/{{tenant-id}}/tags/",
+					"raw": "https://{{STEALTHWATCH-SMC}}/smc-configuration/rest/v1/tenants/:tenant-id/tags/",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"smc-configuration",
 						"rest",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"tags",
 						""
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						}
 					]
 				}
 			},
@@ -216,19 +228,29 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/smc-configuration/rest/v1/tenants/{{tenant-id}}/tags/{{tag-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/smc-configuration/rest/v1/tenants/:tenant-id/tags/:tag-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"smc-configuration",
 						"rest",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"tags",
-						"{{tag-id}}"
+						":tag-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "tag-id",
+							"value": "{{tag-id}}"
+						}
 					]
 				}
 			},
@@ -267,19 +289,29 @@
 					"raw": "{\n    \"id\": {{tag-id}},\n    \"name\": \"Sample Threat Feed\",\n    \"location\": \"OUTSIDE\",\n    \"ranges\": [\n        \"149.202.170.60\",\n        \"23.129.64.101\",\n        \"37.187.129.166\",\n        \"91.146.121.3\",\n        \"91.146.121.3\",\n        \"{{malicious-ip}}\"\n    ],\n    \"description\": \"A sample of a threat feed\",\n    \"hostBaselines\": false,\n    \"suppressExcludedServices\": true,\n    \"inverseSuppression\": false,\n    \"hostTrap\": false,\n    \"sendToCta\": false,\n    \"domainId\": {{tenant-id}},\n    \"parentId\": 0\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/smc-configuration/rest/v1/tenants/{{tenant-id}}/tags/{{tag-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/smc-configuration/rest/v1/tenants/:tenant-id/tags/:tag-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"smc-configuration",
 						"rest",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"tags",
-						"{{tag-id}}"
+						":tag-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "tag-id",
+							"value": "{{tag-id}}"
+						}
 					]
 				}
 			},
@@ -312,19 +344,29 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/smc-configuration/rest/v1/tenants/{{tenant-id}}/tags/{{tag-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/smc-configuration/rest/v1/tenants/:tenant-id/tags/:tag-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"smc-configuration",
 						"rest",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"tags",
-						"{{tag-id}}"
+						":tag-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "tag-id",
+							"value": "{{tag-id}}"
+						}
 					]
 				}
 			},
@@ -345,25 +387,14 @@
 					}
 				],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "username",
-							"value": "{{username}}",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "text"
-						}
-					]
+					"mode": "raw",
+					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/token",
+					"raw": "https://{{STEALTHWATCH-SMC}}/token",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"token"

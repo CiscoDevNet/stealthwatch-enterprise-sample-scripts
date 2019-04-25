@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c706b314-a1df-46c6-a29e-e8e1944206b7",
+		"_postman_id": "8e05b637-de54-46b8-b174-fcbd6aa88e76",
 		"name": "Stealthwatch Enterprise - REST (Reporting)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -24,21 +24,21 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "{{username}}",
+							"value": "admin",
 							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "{{password}}",
+							"value": "C1sco12345",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "https://{{host}}/token/v2/authenticate",
+					"raw": "https://{{STEALTHWATCH-SMC}}/token/v2/authenticate",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"token",
@@ -78,10 +78,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
@@ -148,21 +148,27 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"startDateTime\": \"{{start-timestamp}}\",\n    \"endDateTime\": \"{{end-timestamp}}\",\n    \"recordLimit\": 500,\n    \"subject\": {\n        \"ipAddresses\": {\n            \"includes\": [\"{{malicious-ip}}\"],\n            \"excludes\": []\n        },\n        \"hostGroups\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"username\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"macAddress\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"hostGroups\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"username\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"macAddress\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"flow\": {\n        \"tcpUdpPorts\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"flowDirection\": \"BOTH\",\n        \"byteCount\": [],\n        \"packetCount\": [],\n        \"payload\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"flowDataSource\": [],\n        \"protocol\": [],\n        \"includeInterfaceData\": false\n    }\n}"
+					"raw": "{\n    \"startDateTime\": \"{{start-timestamp}}\",\n    \"endDateTime\": \"{{end-timestamp}}\",\n    \"recordLimit\": 500,\n    \"subject\": {\n        \"ipAddresses\": {\n            \"includes\": [\"175.23.26.39\"],\n            \"excludes\": []\n        },\n        \"hostGroups\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"username\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"macAddress\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"hostGroups\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"username\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"macAddress\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"flow\": {\n        \"tcpUdpPorts\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"flowDirection\": \"BOTH\",\n        \"byteCount\": [],\n        \"packetCount\": [],\n        \"payload\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"flowDataSource\": [],\n        \"protocol\": [],\n        \"includeInterfaceData\": false\n    }\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v2/tenants/{{tenant-id}}/flows/queries",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v2/tenants/:tenant-id/flows/queries",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v2",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flows",
 						"queries"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						}
 					]
 				}
 			},
@@ -195,19 +201,29 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v2/tenants/{{tenant-id}}/flows/queries/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v2/tenants/:tenant-id/flows/queries/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v2",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flows",
 						"queries",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -240,20 +256,30 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v2/tenants/{{tenant-id}}/flows/queries/{{query-id}}/results",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v2/tenants/:tenant-id/flows/queries/:query-id/results",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v2",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flows",
 						"queries",
-						"{{query-id}}",
+						":query-id",
 						"results"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -315,21 +341,27 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"timeRange\": {\n        \"from\": \"{{start-timestamp}}\",\n        \"to\": \"{{end-timestamp}}\"\n    },\n    \"hosts\": [\n    \t{\n\t\t\t\"ipAddress\": \"{{malicious-ip}}\",\n\t\t\t\"type\": \"source\"\n\t\t}\n\t],\n    \"securityEventTypeIds\": []\n}"
+					"raw": "{\n    \"timeRange\": {\n        \"from\": \"{{start-timestamp}}\",\n        \"to\": \"{{end-timestamp}}\"\n    },\n    \"hosts\": [\n    \t{\n\t\t\t\"ipAddress\": \"175.23.26.39\",\n\t\t\t\"type\": \"source\"\n\t\t}\n\t],\n    \"securityEventTypeIds\": []\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/security-events/queries",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/security-events/queries",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"security-events",
 						"queries"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						}
 					]
 				}
 			},
@@ -362,19 +394,29 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/security-events/queries/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/security-events/queries/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"security-events",
 						"queries",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -407,19 +449,29 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/security-events/results/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/security-events/results/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"security-events",
 						"results",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -481,22 +533,28 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"startTime\": \"{{start-timestamp}}\",\n    \"endTime\": \"{{end-timestamp}}\",\n    \"connection\": {\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"direction\": \"INBOUND_PLUS_OUTBOUND\",\n        \"portProtocols\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"subject\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [\n                \"{{malicious-ip}}\"\n            ],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"orientation\": \"EITHER\",\n    \"maxRows\": 50,\n    \"flowCollectors\": [],\n    \"orderBy\": \"TOTAL_BYTES\",\n    \"excludeBpsPps\": true,\n    \"excludeOthers\": true,\n    \"excludeCounts\": false,\n    \"standardOptions\": true\n}"
+					"raw": "{\n    \"startTime\": \"{{start-timestamp}}\",\n    \"endTime\": \"{{end-timestamp}}\",\n    \"connection\": {\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"direction\": \"INBOUND_PLUS_OUTBOUND\",\n        \"portProtocols\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"subject\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [\n                \"175.23.26.39\"\n            ],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"orientation\": \"EITHER\",\n    \"maxRows\": 50,\n    \"flowCollectors\": [],\n    \"orderBy\": \"TOTAL_BYTES\",\n    \"excludeBpsPps\": true,\n    \"excludeOthers\": true,\n    \"excludeCounts\": false,\n    \"standardOptions\": true\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-conversations/queries",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/flow-reports/top-conversations/queries",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flow-reports",
 						"top-conversations",
 						"queries"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						}
 					]
 				}
 			},
@@ -529,20 +587,30 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-conversations/queries/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/flow-reports/top-conversations/queries/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flow-reports",
 						"top-conversations",
 						"queries",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -575,20 +643,30 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-conversations/results/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/flow-reports/top-conversations/results/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flow-reports",
 						"top-conversations",
 						"results",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -650,22 +728,28 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"startTime\": \"{{start-timestamp}}\",\n    \"endTime\": \"{{end-timestamp}}\",\n    \"connection\": {\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"direction\": \"INBOUND_PLUS_OUTBOUND\",\n        \"portProtocols\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"subject\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [\n                \"{{malicious-ip}}\"\n            ],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"orientation\": \"EITHER\",\n    \"maxRows\": 50,\n    \"flowCollectors\": [],\n    \"orderBy\": \"TOTAL_BYTES\",\n    \"excludeBpsPps\": true,\n    \"excludeOthers\": true,\n    \"excludeCounts\": false,\n    \"standardOptions\": true\n}"
+					"raw": "{\n    \"startTime\": \"{{start-timestamp}}\",\n    \"endTime\": \"{{end-timestamp}}\",\n    \"connection\": {\n        \"applications\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"direction\": \"INBOUND_PLUS_OUTBOUND\",\n        \"portProtocols\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"subject\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [\n                \"175.23.26.39\"\n            ],\n            \"excludes\": []\n        }\n    },\n    \"peer\": {\n        \"tags\": {\n            \"includes\": [],\n            \"excludes\": []\n        },\n        \"ipAddresses\": {\n            \"includes\": [],\n            \"excludes\": []\n        }\n    },\n    \"orientation\": \"EITHER\",\n    \"maxRows\": 50,\n    \"flowCollectors\": [],\n    \"orderBy\": \"TOTAL_BYTES\",\n    \"excludeBpsPps\": true,\n    \"excludeOthers\": true,\n    \"excludeCounts\": false,\n    \"standardOptions\": true\n}"
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-ports/queries",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/flow-reports/top-ports/queries",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flow-reports",
 						"top-ports",
 						"queries"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						}
 					]
 				}
 			},
@@ -698,20 +782,30 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-ports/queries/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/flow-reports/top-ports/queries/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flow-reports",
 						"top-ports",
 						"queries",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -744,20 +838,30 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/sw-reporting/v1/tenants/{{tenant-id}}/flow-reports/top-ports/results/{{query-id}}",
+					"raw": "https://{{STEALTHWATCH-SMC}}/sw-reporting/v1/tenants/:tenant-id/flow-reports/top-ports/results/:query-id",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"sw-reporting",
 						"v1",
 						"tenants",
-						"{{tenant-id}}",
+						":tenant-id",
 						"flow-reports",
 						"top-ports",
 						"results",
-						"{{query-id}}"
+						":query-id"
+					],
+					"variable": [
+						{
+							"key": "tenant-id",
+							"value": "123"
+						},
+						{
+							"key": "query-id",
+							"value": "{{query-id}}"
+						}
 					]
 				}
 			},
@@ -778,25 +882,14 @@
 					}
 				],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "username",
-							"value": "{{username}}",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "{{password}}",
-							"type": "text"
-						}
-					]
+					"mode": "raw",
+					"raw": ""
 				},
 				"url": {
-					"raw": "https://{{host}}/token",
+					"raw": "https://{{STEALTHWATCH-SMC}}/token",
 					"protocol": "https",
 					"host": [
-						"{{host}}"
+						"{{STEALTHWATCH-SMC}}"
 					],
 					"path": [
 						"token"
