@@ -5,7 +5,7 @@ For more information on the Stealthwatch Enterprise REST API, please see the fol
 ## Installation
 1. Ensure Postman is installed.
    * To download and install Postman, please visit https://www.getpostman.com.
-2. Download the Postman collections and environment files located in the [postman-samples](./postman-samples) directory.
+2. Download the Postman collections and environment files located in the [postman-samples](.) directory.
 3. After launching Postman, click the `import` button and import the previously downloaded Postman files.
 
 ## Configuration
@@ -43,8 +43,8 @@ Check out our forum to pose a question or to see if any questions have already b
 * For worldwide support numbers: www.cisco.com/en/US/partner/support/tsd_cisco_worldwide_contacts.html
 
 ## Getting involved
-Contributions to this code are welcome and appreciated. See [CONTRIBUTING](./CONTRIBUTING.md) for details. Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
+Contributions to this code are welcome and appreciated. See [CONTRIBUTING](../CONTRIBUTING.md) for details. Please adhere to our [Code of Conduct](../CODE_OF_CONDUCT.md) at all times.
 
 ## Licensing info
-This code is licensed under the BSD 3-Clause License. See [LICENSE](./LICENSE) for details. 
+This code is licensed under the BSD 3-Clause License. See [LICENSE](../LICENSE) for details. 
 

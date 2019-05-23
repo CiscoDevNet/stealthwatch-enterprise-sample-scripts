@@ -7,7 +7,7 @@ For more information on the Stealthwatch Enterprise REST API, please see the fol
    * To download and install Python 3, please visit https://www.python.org.
 2. Ensure the Python `requests` module is installed.
    * For more information on the Python `requests` module, please visit https://pypi.org/project/requests/.
-3. Download the `.py` files located in the [python-samples](./python-samples) directory.
+3. Download the `.py` files located in the [python-samples](.) directory.
 
 *Alternatively, advanced users can also use git to checkout / clone this project.*
 
@@ -48,8 +48,8 @@ Check out our forum to pose a question or to see if any questions have already b
 * For worldwide support numbers: www.cisco.com/en/US/partner/support/tsd_cisco_worldwide_contacts.html
 
 ## Getting involved
-Contributions to this code are welcome and appreciated. See [CONTRIBUTING](./CONTRIBUTING.md) for details. Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
+Contributions to this code are welcome and appreciated. See [CONTRIBUTING](../CONTRIBUTING.md) for details. Please adhere to our [Code of Conduct](../CODE_OF_CONDUCT.md) at all times.
 
 ## Licensing info
-This code is licensed under the BSD 3-Clause License. See [LICENSE](./LICENSE) for details. 
+This code is licensed under the BSD 3-Clause License. See [LICENSE](../LICENSE) for details. 
 
