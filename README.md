@@ -61,7 +61,7 @@ Show users how to use the code. Be specific. Use appropriate formatting when sho
 No known issues.
 
 ## Getting help
-If you need technical support, do one of the following:
+Use this project at your own risk (support not provided). If you need technical support with Cisco Stealthwatch APIs, do one of the following:
 
 ##### Browse the Forum
 <!--
