@@ -6,6 +6,9 @@ This project is split into 2 sections:
 * [Python samples](./python-samples)
 * [Postman samples](./postman-samples)
 
+## Compatibility
+A minimum Stealthwatch Enterprise version of 6.10.0 is required to use these sample scripts (with the exception of the `Get Flows` REST API capability which requires minimum Stealthwatch version 7.0.0).
+
 ## Python samples
 #### Installation
 1. Ensure Python 3 is installed.

@@ -2,6 +2,9 @@
 This repository contains sample Python scripts related to Cisco Stealthwatch Enterprise. It is available for use by the Cisco DevNet community through Code Exchange.
 For more information on the Stealthwatch Enterprise REST API, please see the following link: https://developer.cisco.com/docs/stealthwatch
 
+## Compatibility
+A minimum Stealthwatch Enterprise version of 6.10.0 is required to use these sample scripts (with the exception of the `Get Flows` REST API capability which requires minimum Stealthwatch version 7.0.0).
+
 ## Installation
 1. Ensure Python 3 is installed.
    * To download and install Python 3, please visit https://www.python.org.
