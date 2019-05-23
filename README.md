@@ -64,7 +64,10 @@ No known issues.
 If you need technical support, do one of the following:
 
 ##### Browse the Forum
+<!--
 Check out our forum to pose a question or to see if any questions have already been answered by our community. We monitor these forums on a best effort basis and will periodically post answers. 
+-->
+*Coming soon...*
 
 ##### Open A Case
 * To open a case by web: http://www.cisco.com/c/en/us/support/index.html
