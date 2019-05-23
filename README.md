@@ -13,7 +13,7 @@ This project is split into 2 sections:
    * For more information on the Python `requests` module, please visit https://pypi.org/project/requests/.
 3. Download the `.py` files located in the [python-samples](./python-samples) directory.
 
-*Alternatively, advanced users can also use git to checkout / clone a copy of this project.*
+*Alternatively, advanced users can also use git to checkout / clone this project.*
 
 #### Configuration
 Open the desired `.py` file that you intend to run and enter the following values where specified:
@@ -21,7 +21,7 @@ Open the desired `.py` file that you intend to run and enter the following value
 * `SMC_PASSWORD = ""`
 * `SMC_HOST = ""`
 
-(Note: additional fields may also be required)
+*(Note: additional fields may also be required)*
 
 #### Usage
 <!--
@@ -50,9 +50,6 @@ Show users how to use the code. Be specific. Use appropriate formatting when sho
     * `password`
 
 #### Usage
-<!--
-Show users how to use the code. Be specific. Use appropriate formatting when showing code snippets or command line output. If a particular [DevNet Sandbox](https://developer.cisco.com/sandbox/) or [Learning Lab](https://developer.cisco.com/learning-labs/) can be used in to provide a network or other resources to be used with this code, call that out here.
--->
 1. From the Collections list on the left side of Postman, select the desired collection as well as the desired request to run.
 2. If necessary, modify any parameters in either the `params` section or the `body` section of the request.
 3. When ready, press the `send` button to run the Postman request, and view the response below. 
@@ -62,10 +59,17 @@ Show users how to use the code. Be specific. Use appropriate formatting when sho
 ## Known issues
 No known issues.
 
-<!--
 ## Getting help
-TODO: Instruct users how to get help with this code; this might include links to an issue tracker, wiki, mailing list, etc.
--->
+If you need technical support, do one of the following:
+
+##### Browse the Forum
+Check out our forum to pose a question or to see if any questions have already been answered by our community. We monitor these forums on a best effort basis and will periodically post answers. 
+
+##### Open A Case
+* To open a case by web: http://www.cisco.com/c/en/us/support/index.html
+* To open a case by email: tac@cisco.com
+* For phone support: 1-800-553-2447 (U.S.)
+* For worldwide support numbers: www.cisco.com/en/US/partner/support/tsd_cisco_worldwide_contacts.html
 
 ## Getting involved
 Contributions to this code are welcome and appreciated. See [CONTRIBUTING](./CONTRIBUTING.md) for details. Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
