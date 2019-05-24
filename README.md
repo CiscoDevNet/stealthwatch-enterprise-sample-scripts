@@ -1,4 +1,4 @@
-# Stealthwatch REST API Sample Scripts
+# Stealthwatch Soap/REST API Sample Scripts
 This repository contains sample Python scripts and Postman collections related to Cisco Stealthwatch Enterprise. It is available for use by the Cisco DevNet community through Code Exchange.
 For more information on the Stealthwatch Enterprise REST API, please see the following link: https://developer.cisco.com/docs/stealthwatch
 <br/><br/>
