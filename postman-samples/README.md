@@ -1,4 +1,4 @@
-# Stealthwatch Sample Scripts - Postman Samples
+# Stealthwatch API Sample Scripts - Postman Samples
 This repository contains sample Postman collections related to Cisco Stealthwatch Enterprise. It is available for use by the Cisco DevNet community through Code Exchange.
 For more information on the Stealthwatch Enterprise REST API, please see the following link: https://developer.cisco.com/docs/stealthwatch
 
@@ -31,7 +31,7 @@ A minimum Stealthwatch Enterprise version of 6.10.0 is required to use these sam
 No known issues.
 
 ## Getting help
-Use this project at your own risk (support not provided). If you need technical support with Cisco Stealthwatch APIs, do one of the following:
+Use this project at your own risk (support not provided). *If you need technical support with Cisco Stealthwatch APIs, do one of the following:*
 
 ##### Browse the Forum
 <!--
