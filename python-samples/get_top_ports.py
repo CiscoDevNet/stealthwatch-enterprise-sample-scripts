@@ -74,9 +74,9 @@ if(response.status_code == 200):
     # Set the timestamps for the filters, in the correct format, for last 60 minutes
     end_datetime = datetime.datetime.utcnow()
     start_datetime = end_datetime - datetime.timedelta(minutes=60)
-    # Timestamps for this API call requires 3-digit microseconds, so removing the 4th digit at the end of the timestamp
-    end_timestamp = end_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-1]
-    start_timestamp = start_datetime.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-1]
+    # Timestamps for this API call requires 3-digit microseconds, so defaulting to '000' microseconds
+    end_timestamp = end_datetime.strftime('%Y-%m-%dT%H:%M:%S.000')
+    start_timestamp = start_datetime.strftime('%Y-%m-%dT%H:%M:%S.000')
 
     # Set the filter with the request data
     request_data = {
