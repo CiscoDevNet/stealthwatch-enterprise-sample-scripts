@@ -3,7 +3,10 @@ This repository contains sample Postman collections related to Cisco Stealthwatc
 For more information on the Stealthwatch Enterprise REST API, please see the following link: https://developer.cisco.com/docs/stealthwatch
 
 ## Compatibility
-A minimum Stealthwatch Enterprise version of 6.10.0 is required to use these sample scripts (with the exception of the `Get Flows` REST API capability which requires minimum Stealthwatch version 7.0.0).
+The minimum supported version of Stealthwatch Enterprise that is required to use each respective API capability:
+   * v6.5.0 (Host Snapshot)
+   * v6.10.0 (Domains / Tenants, Top Reports, Security Events)
+   * v7.0.0 (Flows, Host Groups / Tags)
 
 ## Installation
 1. Ensure Postman is installed.
