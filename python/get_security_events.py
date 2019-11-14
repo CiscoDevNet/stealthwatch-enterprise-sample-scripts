@@ -4,7 +4,7 @@
 This script will get the security events for a specific IP in Stealthwatch using the REST API.
 
 For more information on this API, please visit:
-https://www.cisco.com/web/fw/stealthwatch/Online-Help/Content/Online-Help/enterprise-rest-api.htm
+https://developer.cisco.com/docs/stealthwatch/
 
  -
 
