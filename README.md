@@ -7,6 +7,7 @@ The minimum supported version of Stealthwatch Enterprise that is required to use
    * v6.5.0 (Host Snapshot)
    * v6.10.0 (Domains / Tenants, Top Reports, Security Events)
    * v7.0.0 (Flows, Host Groups / Tags)
+   * v7.1.0 (Cognitive Intelligence Incidents)
 
 ## Installation
 1. Ensure Python 3 is installed.
@@ -24,6 +25,16 @@ Open the desired `.py` file that you intend to run and enter the following value
 * `SMC_HOST = ""`
 
 *(Note: additional fields may also be required)*
+
+#### **Cognitive Intelligence Incidents API Configuration**
+The Cognitive Intelligence Incidents REST API is disabled by default. To enable the API:
+
+* Enable Cognitive Analytics in External Services on your SMC and Flow Collector(s).
+* Locate `/lancope/tomcat/webapps/cta-events-collector/WEB-INF/classes/app.properties` file on your SMC system
+* Under `#CTA_ENABLED` section set the `cta.api.enabled` option to `true`
+* Restart web server on your SMC system: `systemctl restart lc-tomcat`
+
+*(Note: The API returns CTA incidents for all domains and expects tenantId to be 0 in the API path parameter. Requesting data for any specific tenant will result in error.)*
 
 ## Usage
 <!--
