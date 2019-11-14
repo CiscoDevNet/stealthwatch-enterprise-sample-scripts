@@ -51,7 +51,7 @@ SMC_TENANT_ID = ""
 # Set the URL for SMC login
 url = "https://" + SMC_HOST + "/token/v2/authenticate"
 
-# Let's create the loginrequest data
+# Let's create the login request data
 login_request_data = {
     "username": SMC_USER,
     "password": SMC_PASSWORD

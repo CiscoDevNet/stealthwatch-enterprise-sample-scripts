@@ -61,7 +61,7 @@ MALICIOUS_IP = ""
 # Set the URL for SMC login
 url = "https://" + SMC_HOST + "/token/v2/authenticate"
 
-# Let's create the loginrequest data
+# Let's create the login request data
 login_request_data = {
     "username": SMC_USER,
     "password": SMC_PASSWORD
@@ -76,14 +76,14 @@ response = api_session.request("POST", url, verify=False, data=login_request_dat
 # If the login was successful
 if (response.status_code == 200):
 
-    # Get the list of tags (host groups) from the SMC
+    # Get the list of Cognitive Intelligence incidents from the SMC
     url = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/0/incidents?ipAddress=' + MALICIOUS_IP
     response = api_session.request("GET", url, verify=False)
 
-    # If successfully able to get list of tags (host groups)
+    # If successfully able to get list of Cognitive Intelligence incidents
     if (response.status_code == 200):
 
-        # Loop through the list and print each tag (host group)
+        # Loop through the list and print Cognitive Intelligence incident
         incidents = json.loads(response.content)["data"]
         for incident in incidents:
             print(incident)
