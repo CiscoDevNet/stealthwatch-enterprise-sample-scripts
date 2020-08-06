@@ -36,7 +36,8 @@ SOFTWARE.
 
 import requests
 import json
-import datetime, time
+import datetime
+import time
 try:
     requests.packages.urllib3.disable_warnings()
 except:
@@ -48,10 +49,9 @@ SMC_USER = ""
 SMC_PASSWORD = ""
 SMC_HOST = ""
 SMC_TENANT_ID = ""
-MALICIOUS_IP = ""
 
 # Set the URL for SMC login
-url = "https://" + SMC_HOST + "/token/v2/authenticate"
+URL = "https://" + SMC_HOST + "/token/v2/authenticate"
 
 # Let's create the login request data
 login_request_data = {
@@ -63,13 +63,13 @@ login_request_data = {
 api_session = requests.Session()
 
 # Perform the POST request to login
-response = api_session.request("POST", url, verify=False, data=login_request_data)
+response = api_session.request("POST", URL, verify=False, data=login_request_data)
 
 # If the login was successful
-if(response.status_code == 200):
-
+if response.status_code == 200:
+    print("Login successful")
     # Set the URL for the query to POST the filter and initiate the search
-    url = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/' + SMC_TENANT_ID + '/flows/queries'
+    URL = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/' + SMC_TENANT_ID + '/flows/queries'
 
     # Set the timestamps for the filters, in the correct format, for last 60 minutes
     end_datetime = datetime.datetime.utcnow()
@@ -81,50 +81,42 @@ if(response.status_code == 200):
     request_data = {
         "startDateTime": start_timestamp,
         "endDateTime": end_timestamp,
-        "subject": {
-            "ipAddresses": {
-                "includes": [MALICIOUS_IP]
-            }
-        },
         "recordLimit": 50
     }
 
     # Perform the query to initiate the search
     request_headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
-    response = api_session.request("POST", url, verify=False, data=json.dumps(request_data), headers=request_headers)
+    response = api_session.request("POST", URL, verify=False, data=json.dumps(request_data), headers=request_headers)
 
     # If successfully able to initiate flows search, grab the search details
-    if (response.status_code == 201):
+    if response.status_code == 201:
         print("Generating results. Please wait...\n")
         search = json.loads(response.content)["data"]["query"]
 
         # Set the URL to check the search status
-        url = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/' + SMC_TENANT_ID + '/flows/queries/' + search["id"]
+        URL = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/' + SMC_TENANT_ID + '/flows/queries/' + search["id"]
 
         # While search status is not complete, check the status every second
         while search["percentComplete"] != 100.0:
-            response = api_session.request("GET", url, verify=False)
+            response = api_session.request("GET", URL, verify=False)
             search = json.loads(response.content)["data"]["query"]
             time.sleep(1)
 
         # Set the URL to check the search results and get them
-        url = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/' + SMC_TENANT_ID + '/flows/queries/' + search["id"] + "/results"
-        response = api_session.request("GET", url, verify=False)
+        URL = 'https://' + SMC_HOST + '/sw-reporting/v2/tenants/' + SMC_TENANT_ID + '/flows/queries/' + search["id"] + "/results"
+        response = api_session.request("GET", URL, verify=False)
         results = json.loads(response.content)["data"]["flows"]
 
-        # Loop through the results and print each flow in a new line
-        for flow in results:
-            print(flow)
+        # Print the flows
+        print(json.dumps(results, indent=2))
 
     # If unable to update the IPs for a given tag (host group)
     else:
         print("An error has ocurred, while getting flows, with the following code {}".format(response.status_code))
 
-    uri = 'https://' + SMC_HOST + '/token'
-    response = api_session.delete(uri, timeout=30, verify=False)
+    URI = 'https://' + SMC_HOST + '/token'
+    response = api_session.delete(URI, timeout=30, verify=False)
 
 # If the login was unsuccessful
 else:
-        print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
-
-
+    print("An error has ocurred, while logging in, with the following code {}".format(response.status_code))
