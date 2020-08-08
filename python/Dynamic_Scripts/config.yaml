@@ -1,0 +1,23 @@
+---
+Product:
+    product: SecureX Threat Analytics
+    version: "0.1"
+    releaseDate: "tbd"
+    demo: false
+SMC:
+    username: admin
+    password: cisco123
+    host: 10.208.113.150
+    tenant: 102
+#
+# DDOS attack vector
+#
+dos_attack:
+    verbose: false # Set me to true to see lots of output
+    enabled: true
+    dos_flow_time: 360 # Look at 5m sliding window (enough time to gather from FCs)
+    dos_flow_repeat_time: 60 # Query each 60s
+    dos_threshhold: 5 # % spike causes a table entry and warning
+    dos_spike: 3 # int consequtive dos_threshholds is an alert
+    protocol: [1, 88, 4] # Change protocols here (1 = ICMP) etc
+    applications: { includes: [58, 44], excludes: [127, 125, 147, 45] }
