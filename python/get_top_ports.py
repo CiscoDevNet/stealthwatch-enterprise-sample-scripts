@@ -50,6 +50,9 @@ SMC_HOST = ""
 SMC_TENANT_ID = ""
 MALICIOUS_IP = ""
 
+# Stealthwatch Constants
+XSRF_HEADER_NAME = 'X-XSRF-TOKEN'
+
 # Set the URL for SMC login
 url = "https://" + SMC_HOST + "/token/v2/authenticate"
 
@@ -67,6 +70,12 @@ response = api_session.request("POST", url, verify=False, data=login_request_dat
 
 # If the login was successful
 if(response.status_code == 200):
+
+    # Set XSRF token for future requests
+    for cookie in response.cookies:
+        if cookie.name == 'XSRF-TOKEN':
+            api_session.headers.update({XSRF_HEADER_NAME: cookie.value})
+            break
 
     # Set the URL for the query to POST the filter and initiate the search
     url = 'https://' + SMC_HOST + '/sw-reporting/v1/tenants/' + SMC_TENANT_ID + '/flow-reports/top-ports/queries'
@@ -123,6 +132,7 @@ if(response.status_code == 200):
 
     uri = 'https://' + SMC_HOST + '/token'
     response = api_session.delete(uri, timeout=30, verify=False)
+    api_session.headers.update({XSRF_HEADER_NAME: None})
 
 # If the login was unsuccessful
 else:
