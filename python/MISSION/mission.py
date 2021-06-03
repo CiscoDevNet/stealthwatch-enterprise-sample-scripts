@@ -25,10 +25,23 @@ SMC_USER = env_lab.SMC.get("username")
 SMC_PASSWORD = env_lab.SMC.get("password")
 SMC_HOST = env_lab.SMC.get("host")
 
+# Stealthwatch Constants
+XSRF_HEADER_NAME = 'X-XSRF-TOKEN'
+
 
 # Perform the request to login to the SMC
 def login(sw_session, data):
-	
+
+	def set_xsrf_token():
+		"""
+		Sets XSRF request headers for the session if a CSRF token is returned during authentication
+		"""
+		for cookie in response.cookies:
+			if cookie.name == 'XSRF-TOKEN':
+				sw_session.headers.update({XSRF_HEADER_NAME: cookie.value})
+				return
+		return
+
 	print("\n==> Logging in to the SMC")
 	url = f'https://{SMC_HOST}/token/v2/authenticate'
 	env_lab.print_missing_mission_warn(env_lab.get_line())
@@ -102,6 +115,7 @@ def terminate_session(sw_session):
 	
 	uri = f'https://{SMC_HOST}/token'
 	response = api_session.delete(uri, timeout=30, verify=False)
+ 	api_session.headers.update({XSRF_HEADER_NAME: None})
 
 # Add the new tag (host group) in the SMC
 def create_new_tag(tag_data):

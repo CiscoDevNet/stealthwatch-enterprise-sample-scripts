@@ -48,6 +48,9 @@ SMC_PASSWORD = "C1sco12345"
 SMC_HOST = "10.10.20.60"
 SMC_TENANT_ID = "132"
 
+# Stealthwatch Constants
+XSRF_HEADER_NAME = 'X-XSRF-TOKEN'
+
 # This is the new user you want to create.
 # Edit the fields as you like.
 newUser = {
@@ -75,6 +78,12 @@ response = api_session.request("POST", url, verify=False, data=login_request_dat
 
 # If the login was successful
 if(response.status_code == 200):
+
+    # Set XSRF token for future requests
+    for cookie in response.cookies:
+        if cookie.name == 'XSRF-TOKEN':
+            api_session.headers.update({XSRF_HEADER_NAME: cookie.value})
+            break
 
     try:
 
@@ -110,6 +119,7 @@ if(response.status_code == 200):
 
     uri = 'https://' + SMC_HOST + '/token'
     response = api_session.delete(uri, timeout=30, verify=False)
+    api_session.headers.update({XSRF_HEADER_NAME: None})
 
 # If the login was unsuccessful
 else:
