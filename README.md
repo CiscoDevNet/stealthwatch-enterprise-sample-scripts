@@ -1,9 +1,9 @@
-# Stealthwatch Enterprise API Sample Scripts
-This repository contains sample Python scripts related to Cisco Stealthwatch Enterprise APIs. It is available for use by the Cisco DevNet community through Code Exchange.
-For more information on the Stealthwatch Enterprise REST API, please see the following link: https://developer.cisco.com/docs/stealthwatch/enterprise
+# Cisco Secure Network Analytics API Sample Scripts
+This repository contains sample Python scripts related to Cisco Secure Network Analytics (formerly Stealthwatch Enterprise) APIs. It is available for use by the Cisco DevNet community through Code Exchange.
+For more information on the Secure Network Analytics REST API, please see the following link: https://developer.cisco.com/docs/stealthwatch/enterprise
 
 ## Compatibility
-The minimum supported version of Stealthwatch Enterprise that is required to use each respective API capability:
+The minimum supported version of Secure Network Analytics (formerly Stealthwatch) that is required to use each respective API capability:
    * v6.5.0 (Host Snapshot)
    * v6.10.0 (Domains / Tenants, Top Reports, Security Events)
    * v7.0.0 (Flows, Host Groups / Tags)
@@ -29,8 +29,8 @@ Open the desired `.py` file that you intend to run and enter the following value
 #### **Cognitive Intelligence Incidents API Configuration**
 The Cognitive Intelligence Incidents REST API is disabled by default. To enable the API:
 
-* Enable Cognitive Analytics in External Services on your SMC and Flow Collector(s).
-* Locate `/lancope/tomcat/webapps/cta-events-collector/WEB-INF/classes/app.properties` file on your SMC system
+* Enable Cognitive Analytics in External Services on your Manager (formerly Stealthwatch Management Console or SMC) and Flow Collector(s).
+* Locate `/lancope/tomcat/webapps/cta-events-collector/WEB-INF/classes/app.properties` file on your Manager
 * Under `#CTA_ENABLED` section set the `cta.api.enabled` option to `true`
 * Restart web server on your SMC system: `systemctl restart lc-tomcat`
 
@@ -50,7 +50,7 @@ Show users how to use the code. Be specific. Use appropriate formatting when sho
 No known issues.
 
 ## Getting help
-Use this project at your own risk (support not provided). *If you need technical support with Cisco Stealthwatch APIs, do one of the following:*
+Use this project at your own risk (support not provided). *If you need technical support with Cisco Secure Network Analytics APIs, do one of the following:*
 
 #### Browse the Forum
 Check out our [forum](https://community.cisco.com/t5/custom/page/page-id/customFilteredByMultiLabel?board=j-disc-dev-security&labels=stealthwatch) to pose a question or to see if any questions have already been answered by our community. We monitor these forums on a best effort basis and will periodically post answers. 
