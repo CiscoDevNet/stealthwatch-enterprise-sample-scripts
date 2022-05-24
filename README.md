@@ -24,6 +24,8 @@ Open the desired `.py` file that you intend to run and enter the following value
 * `SMC_PASSWORD = ""`
 * `SMC_HOST = ""`
 
+*(Note: if a new user is created for making API calls that userid MUST go through the password reset process before making any api calls)
+
 *(Note: additional fields may also be required)*
 
 #### **Cognitive Intelligence Incidents API Configuration**
